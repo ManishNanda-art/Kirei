@@ -1,0 +1,553 @@
+:root {
+  --bg-black: #050505;
+  --bg-dark: #0a0a0a;
+  --text-white: #ffffff;
+  --text-grey: #a0a0a0;
+  --accent-color: #ff007f;
+  --accent-glow: rgba(255, 0, 127, 0.5);
+  --glass-bg: rgba(20, 20, 20, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --primary-font: 'Outfit', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-black);
+  color: var(--text-white);
+  font-family: var(--primary-font);
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Backgrounds */
+#bg-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000 100%);
+  transition: all 1s ease;
+}
+
+#grain-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/7/76/Noise.png");
+}
+
+/* APP LAYOUT */
+.app {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+}
+
+.app-body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  gap: 16px;
+  position: relative;
+}
+
+/* GLASS UTILS */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 260px;
+  min-width: 260px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  gap: 24px;
+  overflow-y: auto;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: white;
+  letter-spacing: -1px;
+  padding-left: 8px;
+}
+
+.sidebar ul {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar ul li {
+  list-style: none;
+  color: var(--text-grey);
+  font-weight: 500;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 12px 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: 0.2s;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateX(4px);
+}
+
+.sidebar ul li i {
+  width: 20px;
+  text-align: center;
+}
+
+/* MAIN CONTENT */
+.main {
+  flex: 1;
+  border-radius: 20px;
+  overflow-y: overlay;
+  /* Better scrollbar handling */
+  overflow-x: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar polish */
+.main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.main::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+.main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* TOP BAR (Standardized Padding) */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
+  /* MATCHED */
+  background: linear-gradient(to bottom, rgba(5, 5, 5, 0.95) 0%, rgba(5, 5, 5, 0.8) 80%, transparent 100%);
+  backdrop-filter: blur(10px);
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-container input {
+  width: 340px;
+  padding: 12px 48px;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(30, 30, 30, 0.6);
+  color: white;
+  font-family: var(--primary-font);
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.search-container input:focus {
+  border-color: var(--accent-color);
+  outline: none;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-grey);
+}
+
+/* HERO SECTION */
+.hero-section {
+  height: 380px;
+  min-height: 380px;
+  margin: 0 32px 40px;
+  /* MATCHED: 32px Sides */
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.hero-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 15s ease-out;
+}
+
+.hero-section:hover .hero-bg {
+  transform: scale(1.1);
+}
+
+.hero-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 40px;
+}
+
+.hero-tag {
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--accent-color);
+  margin-bottom: 12px;
+}
+
+.hero-title {
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -2px;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.hero-subtitle {
+  font-size: 16px;
+  color: #ccc;
+  margin-bottom: 24px;
+  max-width: 500px;
+  line-height: 1.5;
+}
+
+.hero-btn {
+  width: fit-content;
+  padding: 14px 36px;
+  border-radius: 50px;
+  border: none;
+  background: var(--accent-color);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 10px 30px var(--accent-glow);
+  transition: 0.3s;
+}
+
+.hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px var(--accent-glow);
+}
+
+/* SECTIONS (Standardized Padding) */
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  margin: 0 32px 24px;
+  /* MATCHED */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.section-title span {
+  font-size: 13px;
+  color: var(--accent-color);
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* SONG GRID (Standardized Padding) */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 24px;
+  padding: 0 32px 140px;
+  /* MATCHED */
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-6px);
+}
+
+.card-img-wrapper {
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  aspect-ratio: 1;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.play-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.3s cubic-bezier(0.3, 0, 0, 1.3);
+}
+
+.card:hover .play-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card p {
+  font-size: 13px;
+  color: var(--text-grey);
+}
+
+/* LYRICS PANEL */
+.lyrics-panel {
+  width: 340px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(40px);
+  border-left: 1px solid var(--glass-border);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+  margin-left: 0;
+}
+
+.lyrics-panel.collapsed {
+  width: 0;
+  padding: 32px 0;
+  border: none;
+  overflow: hidden;
+  margin-left: -16px;
+  /* Pull back margin */
+}
+
+.lyrics-content {
+  color: #eee;
+  font-size: 18px;
+  line-height: 2.2;
+  text-align: center;
+  margin-top: 20px;
+  height: 100%;
+  overflow-y: auto;
+  font-weight: 500;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.lyrics-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.lyrics-content::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 2px;
+}
+
+/* PLAYER */
+.player {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 90px;
+  border-radius: 30px;
+  padding: 0 32px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+.player-left {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  gap: 16px;
+}
+
+.player-left img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  animation: spin 8s linear infinite paused;
+}
+
+.player-left img.playing {
+  animation-play-state: running;
+  border-color: var(--accent-color);
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.song-details h4 {
+  font-size: 15px;
+  margin-bottom: 2px;
+  color: white;
+}
+
+.song-details p {
+  font-size: 12px;
+  color: var(--accent-color);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.player-controls {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.player-controls button {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.player-controls button:hover {
+  color: white;
+}
+
+.play-pause {
+  width: 50px;
+  height: 50px;
+  background: white !important;
+  color: black !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.play-pause:hover {
+  transform: scale(1.1);
+}
+
+.player-right {
+  color: #888;
+  font-size: 18px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 80px;
+    min-width: 80px;
+    padding: 24px 12px;
+    align-items: center;
+  }
+
+  .logo span,
+  .sidebar ul li span {
+    display: none;
+  }
+
+  .sidebar ul li {
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .logo {
+    padding-left: 0;
+  }
+
+  .hero-title {
+    font-size: 40px;
+  }
+}

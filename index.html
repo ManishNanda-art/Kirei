@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kirei - Editorial</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+  <!-- Texture Overlay -->
+  <div id="bg-layer"></div>
+  <div id="grain-overlay"></div>
+
+  <div class="app">
+    <div class="app-body">
+      <!-- SIDEBAR -->
+      <div class="sidebar glass">
+        <div class="logo">
+          <i class="fa-solid fa-circle-notch"></i> KIREI
+        </div>
+        <ul>
+          <li class="active" onclick="showHome()"><i class="fa-solid fa-house"></i> Discover</li>
+          <li onclick="focusSearch()"><i class="fa-solid fa-compass"></i> Browse</li>
+          <li><i class="fa-solid fa-heart"></i> Favorites</li>
+          <li><i class="fa-solid fa-record-vinyl"></i> Albums</li>
+        </ul>
+        <div style="flex:1"></div>
+        <ul>
+          <li><i class="fa-solid fa-sliders"></i> Settings</li>
+        </ul>
+      </div>
+
+      <!-- MAIN CONTENT -->
+      <div class="main glass">
+        <div class="top-bar">
+          <div class="search-container">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input id="searchInput" placeholder="Search for artists, tracks..." autocomplete="off" />
+          </div>
+
+          <button onclick="toggleLyrics()"
+            style="background:rgba(255,255,255,0.1); border:none; color:white; padding:10px 20px; border-radius:30px; cursor:pointer; font-size:13px; font-weight:600;">
+            LYRICS
+          </button>
+        </div>
+
+        <!-- HERO BANNER -->
+        <div id="hero" class="hero-section">
+          <img id="hero-img" class="hero-bg" src="https://via.placeholder.com/800x400" />
+          <div class="hero-overlay">
+            <span class="hero-tag">FEATURED ARTIST</span>
+            <h1 id="hero-title" class="hero-title">Artist Name</h1>
+            <p id="hero-subtitle" class="hero-subtitle">Latest hits and curated vibes.</p>
+            <button class="hero-btn" onclick="playHero()">PLAY NOW</button>
+          </div>
+        </div>
+
+        <!-- SONGS GRID -->
+        <h2 class="section-title">Trending Tracks</h2>
+        <div id="songs" class="grid-container"></div>
+      </div>
+
+      <!-- LYRICS PANEL -->
+      <div id="lyricsPanel" class="lyrics-panel glass collapsed">
+        <h3
+          style="color:var(--accent-color); text-align:center; font-size:12px; letter-spacing:2px; margin-bottom:10px;">
+          NOW PLAYING LYRICS</h3>
+        <div id="lyricsContent" class="lyrics-content">
+          Select a track to view lyrics.
+        </div>
+      </div>
+    </div>
+
+    <!-- PLAYER -->
+    <div class="player">
+      <div class="player-left">
+        <img id="cover" src="https://via.placeholder.com/60" alt="Art">
+        <div class="song-details">
+          <h4 id="title">Silence</h4>
+          <p id="artist">Kirei Player</p>
+        </div>
+      </div>
+
+      <div class="player-controls">
+        <button style="background:none; border:none; color:white;"><i class="fa-solid fa-backward"></i></button>
+        <button class="play-pause" id="playBtn" onclick="togglePlay()"><i class="fa-solid fa-play"></i></button>
+        <button style="background:none; border:none; color:white;"><i class="fa-solid fa-forward"></i></button>
+      </div>
+
+      <div class="player-right">
+        <i class="fa-solid fa-volume-high" style="color:#888;"></i>
+      </div>
+
+      <audio id="audio"></audio>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
