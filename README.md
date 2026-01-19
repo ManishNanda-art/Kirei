@@ -1,4 +1,4 @@
-[Kirei Preview](https://via.placeholder.com/1200x600/050505/FF007F?text=Kirei+Preview)
+[Kirei Preview](https://manishnanda-art.github.io/Kirei/)
 
 ## ✨ Features
 
